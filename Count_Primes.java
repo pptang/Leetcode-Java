@@ -1,32 +1,17 @@
 public class Solution {
+
     public int countPrimes(int n) {
         
-        if (n < 3) return 0;
-        
-        int countOfPrimes = 1; // 2
-        
-        for (int i = 3; i < n; i += 2) {
-            
-            if (isPrime(i)) {
-                countOfPrimes++;
-            }
+        boolean[] isMultipliesArray = new boolean[n];
+        int countOfPrime = 0;
+        for (int i = 2; i < n; i++) {
+            if (isMultipliesArray[i]) continue;
+
+            countOfPrime++;
+            for (int j = i; j < n; j = j + i) isMultipliesArray[j] = true;
         }
-        return countOfPrimes;
-    }
-    
-    private boolean isPrime(int number) {
-        boolean numberIsPrime = true;
-        
-        if (number % 2 == 0) return false;
-        
-        for (int j = 3; j <= Math.sqrt(number); j = j + 2) {
-            if (number % j == 0) {
-                numberIsPrime = false;
-                break;
-            }
-        }
-        return numberIsPrime;
-        
+
+        return countOfPrime;
     }
     
 }
